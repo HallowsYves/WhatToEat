@@ -1,18 +1,15 @@
-import { useState } from 'react'
-import Wheel from './components/Wheel/Wheel'
-import './App.css'
+import React from 'react';
+import Wheel from './components/Wheel/Wheel';
 
-function App() {
-  const names = ['Yves', 'Lebron', 'James', 'Heidy', 'Sam', 'Nina', 'Leo'];
-
-
+const App = () => {
+  const restaurants = ["Taco Bell", "Chipotle", "Sweetgreen", "In-N-Out"];
 
   return (
     <div>
-      <h1>Spin the Wheel!</h1>
-      <Wheel segments={names} />
+      <h1>What should we eat?</h1>
+      <Wheel items={restaurants} />
     </div>
   );
-}
+};
 
-export default App
+export default App;
