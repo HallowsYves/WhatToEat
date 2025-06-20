@@ -1,7 +1,8 @@
 'use client'
 import { TypeAnimation } from "react-type-animation";
-import { dela_gothic_one, inter } from "./fonts";
+import { dela_gothic_one, outfit } from "./fonts";
 import { useState } from "react";
+
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(false);
@@ -12,13 +13,13 @@ export default function Home() {
       <TypeAnimation
         sequence={[
           "PIZZA",
-          1000,
+          500,
           "SUSHI",
-          1000,
+          500,
           "TACOS",
-          1000,
+          500,
           "RAMEN",
-          1000,
+          500,
           "?????",
           500,
           () => setShowIntro(true)
@@ -33,7 +34,7 @@ export default function Home() {
     
     {showIntro && (
     <div className="Intro mt-6">
-      <p className={`${inter.className} text-center text-[#E0E1DD] text-[5vw] `}>
+      <p className={`${outfit.className} text-center text-[#E0E1DD] text-[5vw] `}>
         Still don't know WhatToEat?
       </p>
     </div>
@@ -41,3 +42,5 @@ export default function Home() {
     </>
   )
 }
+
+// TODO: ADD Float from bottom up animation to main text, and add Get started button
