@@ -1,9 +1,12 @@
 'use client'
 import { TypeAnimation } from "react-type-animation";
-import { dela_gothic_one } from "./fonts";
+import { dela_gothic_one, inter } from "./fonts";
+import { useState } from "react";
 
 export default function Home() {
+  const [showIntro, setShowIntro] = useState(false);
   return (
+    <>
 
     <div className="text-white text-center">
       <TypeAnimation
@@ -16,13 +19,25 @@ export default function Home() {
           1000,
           "RAMEN",
           1000,
-          "?????"
+          "?????",
+          500,
+          () => setShowIntro(true)
         ]}
         wrapper="span"
-        speed={30}
-        className={`${dela_gothic_one.className} text-[#E0E1DD] text-[10em] font-bold`}
+        speed={50}
+        className={`${dela_gothic_one.className}  text-[#E0E1DD] text-[10em] font-bold`}
         repeat={0}
+        cursor={false}
       />
     </div>
+    
+    {showIntro && (
+    <div className="Intro mt-6">
+      <p className={`${inter.className} text-center text-[#E0E1DD] text-[5vw] `}>
+        Still don't know WhatToEat?
+      </p>
+    </div>
+    )}
+    </>
   )
 }
