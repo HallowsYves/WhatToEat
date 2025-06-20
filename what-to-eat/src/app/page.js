@@ -1,5 +1,6 @@
 'use client'
 import { TypeAnimation } from "react-type-animation";
+import { dela_gothic_one } from "./fonts";
 
 export default function Home() {
   return (
@@ -18,8 +19,8 @@ export default function Home() {
           "?????"
         ]}
         wrapper="span"
-        speed={20}
-        style={{ fontSize: '10em', display: 'inline-block', color: 'white', fontWeight: "bold"  }}
+        speed={30}
+        className={`${dela_gothic_one.className} text-[#E0E1DD] text-[10em] font-bold`}
         repeat={0}
       />
     </div>
