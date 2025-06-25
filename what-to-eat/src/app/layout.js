@@ -1,5 +1,5 @@
 import "./globals.css";
-import { dela_gothic_one } from "./fonts";
+import { poppins } from "./fonts";
 
 
 export const metadata = {
@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${dela_gothic_one.variable} font-sans bg-[#0D1B2A]`}>
+      <body className={`${poppins.className} bg-[#0D1B2A]`}>
         {children}
       </body>
     </html>
