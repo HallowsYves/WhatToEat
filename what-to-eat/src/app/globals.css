@@ -1,3 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Remove the @tailwind directives.
+  You can keep body styles or other global styles here.
+*/
+
+body {
+  margin: 0;
+  background-color: #0D1B2A;
+  /* You can set your background color here if it's not on the body tag in layout.js */
+}
