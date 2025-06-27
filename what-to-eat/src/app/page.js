@@ -5,6 +5,7 @@ import { useState, Button } from 'react';
 import Link from 'next/link';
 import styles from './css/home.module.css';
 import IntroText from './components/intro_text';
+import AnimatedItem from './components/AnimatedItem';
 export default function Home() {
   const [showIntro, setShowIntro] = useState(false);
 
@@ -44,20 +45,23 @@ export default function Home() {
           </div>
           
           {/* Load prompt, and Button AFTER typing animation */}
-          {showIntro && (<IntroText styles={styles}/>)}
-          
           {showIntro && (
-            <div className={styles.buttonContainer}>
+            <>
+            <AnimatedItem>
+              <IntroText styles={styles} />
+            </AnimatedItem>
+            <AnimatedItem>
+              <div className={styles.buttonContainer}>
               <Link href="/find" className={`${poppins.className} ${styles.mealButton}`} >
                 Find My Meal!
               </Link>
             </div>
+            </AnimatedItem>
+            </>
           )}
-
         </div>
       </main>
     </>
   );
 }
 
-// TODO: Add Float from bottom up animation to main text, and add Get started button

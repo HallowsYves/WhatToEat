@@ -17,11 +17,12 @@
   border-radius: 1rem; 
   
   box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-  
   padding: 2rem; 
   max-width: 42rem; 
+  min-height: 350px;
   width: 100%;
 }
+
 
 .textContainer {
   color: white;
