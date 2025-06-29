@@ -8,7 +8,7 @@ export default function AnimatedItem({children, delay = 0}) {
           initial={{opacity: 0}}
           animate={{opacity: 1}}
           transition={{
-            duration: 2,
+            duration: 1.7,
           }}
           >
             {children}
