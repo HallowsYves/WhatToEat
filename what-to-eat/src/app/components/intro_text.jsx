@@ -1,15 +1,17 @@
 'use client'
 import { poppins } from '../fonts';
+import styles from '../css/home.module.css'
 
 
-export default function IntroText({ styles}) {
-    if (!styles) {
-        return null
-    }
+export default function IntroText() {
     return (
-            <div className={styles.intro}>
-              <p className={`${poppins.className} ${styles.introText}`}>
-                Still don't know WhatToEat?
+            <div className={styles.textContainer}>
+              <h1 className={styles.mainTitle}>
+                Don't know WhatToEat?
+              </h1>
+
+              <p className={styles.subTitle}>
+                Let us help you decide.
               </p>
             </div>
     );
