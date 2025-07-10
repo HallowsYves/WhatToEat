@@ -13,7 +13,6 @@ export default function Home() {
     <>
       {/* Centered Container*/}
       <main className={styles.mainContainer}>
-          {/* Load prompt, and Button AFTER typing animation */}
             <>
             <AnimatedItem>
               <IntroText styles={styles} />
@@ -30,6 +29,3 @@ export default function Home() {
     </>
   );
 }
-
-
-// TODO: Remove Card, and maybe typing section(too distracting)

@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.20.7",
+    "@vis.gl/react-google-maps": "^1.5.4",
     "motion": "^12.18.1",
     "next": "15.3.4",
     "react": "^19.0.0",
