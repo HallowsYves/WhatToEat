@@ -1,19 +1,25 @@
-'use client'
+'use client';
 
 import { useState, useEffect } from "react";
-import { APIProvider, Map } from "@vis.gl/react-google-maps";
+import { APIProvider, Map, AdvancedMarker } from "@vis.gl/react-google-maps";
+import styles from '../css/find.module.css';
 
-import { AdvancedMarker } from "@vis.gl/react-google-maps";
+import FiltersPanel from "../components/FiltersPanel";
 
 export default function Find() {
+    // -- STATES --
     const [position, setPosition] = useState(null);
+    const [radius, setRadius] = useState(5000);
+    const [places, setPlaces] = useState([]);
+
+    // -- GEOLOCATION LOGIC --
     useEffect(() => {
-        if(navigator.geolocation) {
+        if (navigator.geolocation) {
             const options = {
                 enableHighAccuracy: true,
                 timeout: 5000,
                 maximumAge: 0
-            }; 
+            };
             navigator.geolocation.getCurrentPosition(
                 (pos) => {
                     setPosition({
@@ -28,33 +34,39 @@ export default function Find() {
                 options
             );
         } else {
-            console.error("Geolocation is not supported by this browser. ");
+            console.error("Geolocation is not supported by this browser.");
             setPosition({ lat: 34.0522, lng: -118.2437 }); // LA
         }
     }, []);
 
-    
+
     return (
-        <APIProvider apiKey={process.env.NEXT_PUBLIC_MAPS}>
-            {/* Render if we have user's location */}
-            <div style={{ height: '100vh', width: '100%' }}>
-                {position ? (
-                    <Map
-                    defaultCenter={position}
-                    defaultZoom={14}
-                    mapId="what-to-eat-map"
-                    >
-                    
-                    <AdvancedMarker position={position} />
-                    </Map>
-                ) : (
-                    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
-                        <h1>Getting your location...</h1>
-                        <p>Please allow location access when prompted.</p>
+        <main className={styles.pageContainer}>
+            <div className={styles.mainCard}>
+                <APIProvider apiKey={process.env.NEXT_PUBLIC_MAPS}>
+                    <div className={styles.mapContainer}>
+                        {position ? (
+                            <Map
+                                defaultCenter={position}
+                                defaultZoom={14}
+                                mapId="what-to-eat-map"
+                                disableDefaultUI={true}
+                            >
+                                <AdvancedMarker position={position} />
+                            </Map>
+                        ) : (
+                            <div className={styles.loadingState}>
+                                <h1>Getting your location...</h1>
+                            </div>
+                        )}
                     </div>
-                )}
+
+                    {/* Right Side: Filters */}
+                    <div className={styles.filtersContainer}>
+                        <FiltersPanel radius={radius} setRadius={setRadius} />
+                    </div>
+                </APIProvider>
             </div>
-        </APIProvider>
+        </main>
     );
 }
-
