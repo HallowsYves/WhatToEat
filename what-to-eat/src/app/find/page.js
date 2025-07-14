@@ -44,6 +44,12 @@ export default function Find() {
         <main className={styles.pageContainer}>
             <div className={styles.mainCard}>
                 <APIProvider apiKey={process.env.NEXT_PUBLIC_MAPS}>
+
+                    {/*  Filters */}
+                    <div className={styles.filtersContainer}>
+                        <FiltersPanel radius={radius} setRadius={setRadius} />
+                    </div>
+                    
                     <div className={styles.mapContainer}>
                         {position ? (
                             <Map
@@ -61,10 +67,7 @@ export default function Find() {
                         )}
                     </div>
 
-                    {/* Right Side: Filters */}
-                    <div className={styles.filtersContainer}>
-                        <FiltersPanel radius={radius} setRadius={setRadius} />
-                    </div>
+
                 </APIProvider>
             </div>
         </main>

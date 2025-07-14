@@ -1,28 +1,56 @@
 'use client';
 
+import { useState } from 'react';
 import styles from '../css/find.module.css';
 
-export default function FiltersPanel({ radius, setRadius}) {
-    return (
-        <div className={styles.filtersContent}>
-            <h2>Filters</h2>
-            <div className={styles.filterItem}>
-                <label htmlFor="radius-slider">
-                    Search Radius: {(radius / 1000).toFixed(1)} km
-                </label>
+export default function FiltersPanel() {
+    const [activePrice, setActivePrice] = useState('$$');
+    
+    // Filters
+    const distanceFilters = ['Driving', 'Biking', 'Walking', 'other']
+    const categoryFilters = ['Italian', 'Mexican', 'Japanese','Chinese']
 
-                <input
-                id="radius-slider"
-                type="range"
-                min="500"
-                max="50000"
-                step="500"
-                value={radius}
-                onChange={(e) => setRadius(Number(e.target.value))}
-                className={styles.slider}
-                />
-            </div>
-            <button className={styles.searchButton}> Find Restaurants </button>
+    return (
+    <div className={styles.filtersContent}>
+      {/* -- Price -- */}
+        <div className={styles.filterSection}>
+        <h3 className={styles.filterTitle}>Price</h3>
+        <div className={styles.priceButtons}>
+        {['$', '$$', '$$$', '$$$$'].map((price) => (
+            <button
+            key={price}
+            className={`${styles.priceButton} ${activePrice === price ? styles.active : ''}`}
+            onClick={() => setActivePrice(price)}
+            >
+            {price}
+            </button>
+        ))}
         </div>
+    </div>
+
+    {/* -- Category -- */}
+    <div className={styles.filterSection}>
+        <h3 className={styles.filterTitle}> Category</h3>
+        <div className={styles.categoryPills}>
+            {categoryFilters.map((filter) => (
+                <button key={filter} className={styles.categoryPill}>{filter}</button>
+            ))}
+        </div>
+        <a href="#" className={styles.seeAllLink}> See all </a>
+    </div>
+
+      {/* -- Distance -- */}
+    <div className={styles.filterSection}>
+        <h3 className={styles.filterTitle}>Distance</h3>
+        <div className={styles.radioGroup}>
+        {distanceFilters.map((filter, index) => (
+            <label key={filter} className={styles.radioLabel}>
+            <input type="radio" name="distance" defaultChecked={index === 0} className={styles.radioInput} />
+            <span>{filter}</span>
+            </label>
+        ))}
+            </div>
+        </div>
+    </div>
     );
 }

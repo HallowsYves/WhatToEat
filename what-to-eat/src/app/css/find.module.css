@@ -1,3 +1,91 @@
+/* Filter Panel Styles */ 
+
+.filtersContent {
+  color: #E0E1DD;
+  width: 100%;
+}
+
+.filterSection {
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #415A77;
+}
+
+.filterSection:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.filterTitle {
+  font-size: 1.125rem; /* 18px */
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Price Buttons */
+.priceButtons {
+  display: flex;
+  width: 100%;
+  border: 1px solid #415A77;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.priceButton {
+  flex: 1;
+  padding: 0.5rem;
+  background-color: transparent;
+  color: #E0E1DD;
+  border: none;
+  border-right: 1px solid #415A77;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.priceButton:last-child {
+  border-right: none;
+}
+
+.priceButton.active {
+  background-color: #415A77;
+  font-weight: bold;
+}
+
+
+/* Category */
+.categoryPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.categoryPill {
+  padding: 0.5rem 1rem;
+  background-color: #2a3b52;
+  color: #E0E1DD;
+  border: 1px solid #415A77;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.categoryPill:hover {
+  background-color: #415A77;
+}
+
+/* See All Link */
+.seeAllLink {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #a7c4e4;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.seeAllLink:hover {
+  text-decoration: underline;
+}
 
 .pageContainer {
     display: flex;
