@@ -56,6 +56,14 @@ export default function Find() {
   const [restaurants, setRestaurants] = useState(mockRestaurants);
   const [distance, setDistance] = useState(2.0);
   const [selectedCuisines, setSelectedCuisines] = useState([]);
+  const filteredRestaurants = mockRestaurants.filter(restaurant => {
+    if (selectedCuisines.length === 0) {
+        return true
+    }
+    else {
+        return selectedCuisines.includes(restaurant.cuisine)
+    }
+});
   
   const cuisineTypes = ['Italian', 'Chinese', 'Mexican', 'Japanese', 'American', 'Indian', 'Thai', 'French', 'Mediterranean', 'Fast Food', 'Pizza', 'Sushi'];
 
@@ -183,8 +191,9 @@ export default function Find() {
           <div className={styles.listContainer}>
             <h2 className={styles.sectionTitle}>Nearby Restaurants</h2>
             <p className={styles.resultsFound}>{restaurants.length} restaurants found</p>
+            
             <div className={styles.restaurantList}>
-              {restaurants.map(restaurant => (
+              {filteredRestaurants.map(restaurant => (
                 <div key={restaurant.id} className={styles.restaurantCard}>
                   <div className={styles.cardHeader}>
                     <h4 className={styles.cardTitle}>{restaurant.name}</h4>
