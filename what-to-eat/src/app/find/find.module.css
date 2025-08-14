@@ -1,0 +1,257 @@
+.container {
+  display: flex;
+  background-color: #0D1B2A;
+  color: #E0E1DD;
+  min-height: calc(100vh - 80px); /* Full height minus navbar */
+  padding: 1.5rem;
+  gap: 2rem;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+  flex: 0 0 300px;
+  background-color: #1B263B;
+  padding: 1.5rem;
+  border-radius: 12px;
+  align-self: flex-start;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.filterGroup {
+  margin-bottom: 2rem;
+}
+
+.filterTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #E0E1DD;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #415A77;
+}
+
+.cuisineGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.cuisineButton {
+  background-color: #415A77;
+  color: #E0E1DD;
+  border: 1px solid transparent;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+}
+
+.cuisineButton:hover {
+  background-color: #5d7aa1;
+  border-color: #778DA9;
+}
+
+.activeCuisine {
+  background-color: #F77F00; /* Accent color */
+  color: #0D1B2A;
+  font-weight: bold;
+}
+
+.slider {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  background: #415A77;
+  border-radius: 5px;
+  outline: none;
+  margin-top: 1rem;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #F77F00;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #F77F00;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.sliderLabels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  color: #778DA9;
+  margin-top: 0.5rem;
+}
+
+.distanceValue {
+  color: #E0E1DD;
+  font-weight: bold;
+}
+
+.clearButton {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #778DA9;
+  background-color: transparent;
+  color: #E0E1DD;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  margin-top: 1rem;
+}
+
+.clearButton:hover {
+  background-color: #415A77;
+  border-color: #415A77;
+}
+
+
+/* --- Main Content --- */
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.sectionTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.mapContainer {
+  height: 400px;
+  background-color: #1B263B;
+  border-radius: 12px;
+  overflow: hidden; /* Important for border-radius on map */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+}
+
+.loading, .mapContainer .loading {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userMarker {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #007BFF;
+  border: 3px solid white;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.8);
+}
+
+
+/* --- Restaurant List --- */
+.listContainer {
+  background-color: #1B263B;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.resultsFound {
+  color: #778DA9;
+  margin-bottom: 1rem;
+}
+
+.restaurantList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.restaurantCard {
+  background-color: #0D1B2A;
+  border: 1px solid #415A77;
+  border-radius: 8px;
+  padding: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.restaurantCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.cardTitle {
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.cardRating {
+  background-color: #F77F00;
+  color: #0D1B2A;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.cardDetails {
+  display: flex;
+  gap: 0.5rem;
+  color: #778DA9;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.price {
+  color: #E0E1DD;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: #778DA9;
+}
+
+.open {
+  color: #2a9d8f;
+  font-weight: bold;
+}
+
+.closed {
+  color: #e76f51;
+  font-weight: bold;
+}
+
+
+/* Responsive */
+@media (max-width: 992px) {
+    .container {
+        flex-direction: column;
+    }
+    .sidebar {
+        flex: 1;
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
