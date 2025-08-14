@@ -1,8 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { Circle } from '../components/circle';
 import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
 import styles from './find.module.css';
+
 
 // Mock Data for demonstration purposes
 const mockRestaurants = [
@@ -67,7 +69,7 @@ export default function Find() {
           });
         },
         () => {
-          // Fallback to Paramount, CA if location is denied
+          // Fallback to Los Angeles, CA if location is denied
           setUserPosition({ lat: 33.9546, lng: -118.1637 });
         }
       );
@@ -88,7 +90,6 @@ export default function Find() {
   const clearFilters = () => {
     setSelectedCuisines([]);
     setDistance(2.0);
-    // You can add budget clearing logic here as well
   };
 
   return (
@@ -162,6 +163,15 @@ export default function Find() {
                      <div className={styles.userMarker}></div>
                 </AdvancedMarker>
                 {restaurants.map(r => <AdvancedMarker key={r.id} position={r.location} title={r.name} />)}
+                <Circle
+                center = {userPosition}
+                radius={distance * 1000}
+                strokeColor="#007cff"
+                strokeOpacity={0.8}
+                strokeWeight={2}
+                fillColor="#007cff"
+                fillOpacity={0.2}
+                />
               </Map>
             ) : (
               <div className={styles.loading}>
