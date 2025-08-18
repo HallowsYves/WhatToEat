@@ -56,13 +56,15 @@ export default function Find() {
   const [restaurants, setRestaurants] = useState(mockRestaurants);
   const [distance, setDistance] = useState(2.0);
   const [selectedCuisines, setSelectedCuisines] = useState([]);
+  const [selectedPrice, setSelectedPrice] = useState('$$$$');
+
+
   const filteredRestaurants = mockRestaurants.filter(restaurant => {
-    if (selectedCuisines.length === 0) {
-        return true
-    }
-    else {
-        return selectedCuisines.includes(restaurant.cuisine)
-    }
+
+    const cuisineMatch = selectedCuisines.length === 0 || selectedCuisines.includes(restaurant.cuisine);
+    const priceMatch = restaurant.price.length <= selectedPrice.length;
+
+    return cuisineMatch && priceMatch;
 });
   
   const cuisineTypes = ['Italian', 'Chinese', 'Mexican', 'Japanese', 'American', 'Indian', 'Thai', 'French', 'Mediterranean', 'Fast Food', 'Pizza', 'Sushi'];
@@ -124,7 +126,17 @@ export default function Find() {
           {/* Budget Filter - Placeholder */}
            <div className={styles.filterGroup}>
              <h3 className={styles.filterTitle}>Budget Range</h3>
-             <input type="range" min="1" max="4" defaultValue="4" className={styles.slider} />
+             <input 
+                type="range"
+                min="1"
+                max="4"
+                className={styles.slider}
+                value={selectedPrice.length}
+                onChange={(e) => {
+                  const priceLables = ["$", "$$", "$$$", "$$$$"];
+                  setSelectedPrice(priceLables[e.target.value - 1]);
+                }} 
+              />
              <div className={styles.sliderLabels}>
                 <span>$</span>
                 <span>$$</span>
