@@ -8,10 +8,18 @@ import styles from './find.module.css';
 
 export default function Find() {
   const [userPosition, setUserPosition] = useState(null);
+  const [sliderDistance, setSliderDistance] = useState(2.0);
   const [restaurants, setRestaurants] = useState([]);
   const [distance, setDistance] = useState(2.0);
   const [selectedCuisines, setSelectedCuisines] = useState([]);
   const [selectedPrice, setSelectedPrice] = useState('$$$$');
+
+  const priceLevelMap = {
+  "PRICE_LEVEL_INEXPENSIVE": 1,
+  "PRICE_LEVEL_MODERATE": 2,
+  "PRICE_LEVEL_EXPENSIVE": 3,
+  "PRICE_LEVEL_VERY_EXPENSIVE": 4
+  };
 
   useEffect(() => {
 
@@ -44,11 +52,23 @@ export default function Find() {
 
   }, [userPosition, distance, selectedCuisines, selectedPrice])
 
+    // NEW: Add this useEffect to handle the debouncing
+  useEffect(() => {
+    // Set a timer
+    const handler = setTimeout(() => {
+      setDistance(sliderDistance);
+    }, 300); // 300ms delay
+    
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [sliderDistance]);
+
 
   const filteredRestaurants = restaurants.filter(restaurant => {
 
-    const cuisineMatch = selectedCuisines.length === 0 || selectedCuisines.includes(restaurant.cuisine);
-    const priceMatch = restaurant.priceLevel <= selectedPrice.length;
+    const cuisineMatch = selectedCuisines.length === 0 || selectedCuisines.some(cuisine => restaurant.types.includes(cuisine.toLowerCase().replace(' ', '_')));
+    const priceMatch = priceLevelMap[restaurant.priceLevel] <= selectedPrice.length;
 
     return cuisineMatch && priceMatch;
 });
@@ -139,14 +159,14 @@ export default function Find() {
                 type="range" 
                 min="0.5" 
                 max="10" 
-                step="0.1"
-                value={distance}
-                onChange={(e) => setDistance(parseFloat(e.target.value))}
+                step="0.5"
+                value={sliderDistance}
+                onChange={(e) => setSliderDistance(parseFloat(e.target.value))}
                 className={styles.slider} 
              />
              <div className={styles.sliderLabels}>
                 <span>0.5km</span>
-                <span className={styles.distanceValue}>{distance.toFixed(1)} km</span>
+                <span className={styles.distanceValue}>{sliderDistance.toFixed(1)} km</span>                
                 <span>10km</span>
              </div>
           </div>
@@ -169,7 +189,11 @@ export default function Find() {
                 <AdvancedMarker position={userPosition} title={'Your Location'}>
                      <div className={styles.userMarker}></div>
                 </AdvancedMarker>
-                {filteredRestaurants.map(r => <AdvancedMarker key={r.id} position={r.location} title={r.displayName.text} />)}
+                {filteredRestaurants.map(r => 
+                <AdvancedMarker 
+                key={r.id} 
+                position={{lat: r.location.latitude, lng: r.location.longitude}} 
+                title={r.displayName.text} />)}
                 <Circle
                 center = {userPosition}
                 radius={distance * 1000}
@@ -192,7 +216,7 @@ export default function Find() {
             <p className={styles.resultsFound}>{restaurants.length} restaurants found</p>
             
           <div className={styles.restaurantList}>
-            {restaurants.map(restaurant => {
+            {filteredRestaurants.map(restaurant => {
               const priceString = '$'.repeat(restaurant.priceLevel);
 
             return (

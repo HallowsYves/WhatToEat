@@ -26,7 +26,7 @@ export async function POST (request) {
         headers: {
             'Content-Type': 'application/json',
             'X-Goog-Api-Key': process.env.NEXT_PUBLIC_MAPS,
-            'X-Goog-FieldMask': 'places.displayName,places.location,places.rating,places.priceLevel'
+            'X-Goog-FieldMask': 'places.id,places.displayName,places.location,places.rating,places.priceLevel,places.types'
         },
         body: JSON.stringify(body)
     });
