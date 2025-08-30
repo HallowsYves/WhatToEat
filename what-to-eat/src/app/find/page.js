@@ -58,8 +58,31 @@ export default function Find() {
   const [selectedCuisines, setSelectedCuisines] = useState([]);
   const [selectedPrice, setSelectedPrice] = useState('$$$$');
 
+  useEffect(() => {
 
-  const filteredRestaurants = mockRestaurants.filter(restaurant => {
+    const fetchRestaurants = async () => {
+      if (!userPosition) return;
+      
+      const response = await fetch('/api/search', {
+        method:'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          latitude: userPosition.lat,
+          longitude: userPosition.lng,
+          radius: distance * 1000,
+        })
+      });
+
+      const data = await response.json();
+      setRestaurants(data.places);
+    }
+
+  }, [userPosition, distance, selectedCuisines, selectedPrice])
+
+
+  const filteredRestaurants = restaurants.filter(restaurant => {
 
     const cuisineMatch = selectedCuisines.length === 0 || selectedCuisines.includes(restaurant.cuisine);
     const priceMatch = restaurant.price.length <= selectedPrice.length;
@@ -100,6 +123,7 @@ export default function Find() {
   const clearFilters = () => {
     setSelectedCuisines([]);
     setDistance(2.0);
+    setSelectedPrice("$$")
   };
 
   return (
@@ -182,7 +206,7 @@ export default function Find() {
                 <AdvancedMarker position={userPosition} title={'Your Location'}>
                      <div className={styles.userMarker}></div>
                 </AdvancedMarker>
-                {restaurants.map(r => <AdvancedMarker key={r.id} position={r.location} title={r.name} />)}
+                {filteredRestaurants.map(r => <AdvancedMarker key={r.id} position={r.location} title={r.name} />)}
                 <Circle
                 center = {userPosition}
                 radius={distance * 1000}
