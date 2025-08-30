@@ -21,7 +21,7 @@ export async function POST (request) {
         }
     };
 
-    const response = await fetch(URL, {
+    const response = await fetch('https://places.googleapis.com/v1/places:searchNearby', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -31,9 +31,16 @@ export default function Find() {
       });
 
       const data = await response.json();
-      console.log(data);
-      setRestaurants(data.places);
+
+      if (data.places) {
+        console.log(data);
+        setRestaurants(data.places);
+      } else {
+        setRestaurants([]);
+      }
     }
+  
+    fetchRestaurants();
 
   }, [userPosition, distance, selectedCuisines, selectedPrice])
 
@@ -41,7 +48,7 @@ export default function Find() {
   const filteredRestaurants = restaurants.filter(restaurant => {
 
     const cuisineMatch = selectedCuisines.length === 0 || selectedCuisines.includes(restaurant.cuisine);
-    const priceMatch = restaurant.price.length <= selectedPrice.length;
+    const priceMatch = restaurant.priceLevel <= selectedPrice.length;
 
     return cuisineMatch && priceMatch;
 });
@@ -162,7 +169,7 @@ export default function Find() {
                 <AdvancedMarker position={userPosition} title={'Your Location'}>
                      <div className={styles.userMarker}></div>
                 </AdvancedMarker>
-                {filteredRestaurants.map(r => <AdvancedMarker key={r.id} position={r.location} title={r.name} />)}
+                {filteredRestaurants.map(r => <AdvancedMarker key={r.id} position={r.location} title={r.displayName.text} />)}
                 <Circle
                 center = {userPosition}
                 radius={distance * 1000}
@@ -188,18 +195,18 @@ export default function Find() {
             {restaurants.map(restaurant => {
               const priceString = '$'.repeat(restaurant.priceLevel);
 
-              return (
-                <div key={restaurant.id} className={styles.restaurantCard}>
-                  <div className={styles.cardHeader}>
-                    <h4 className={styles.cardTitle}>{restaurant.displayName}</h4>
-                    <div className={styles.cardRating}>⭐ {restaurant.rating}</div>
-                  </div>
-                  <div className={styles.cardDetails}>
-                    <span className={styles.price}>{priceString}</span>
-                  </div>
+            return (
+              <div key={restaurant.id} className={styles.restaurantCard}>
+                <div className={styles.cardHeader}>
+                  <h4 className={styles.cardTitle}>{restaurant.displayName.text}</h4>
+                  <div className={styles.cardRating}>⭐ {restaurant.rating}</div>
                 </div>
-              );
-            })}
+                <div className={styles.cardDetails}>
+                  <span className={styles.price}>{priceString}</span>
+                </div>
+              </div>
+            );
+          })}
           </div>
           </div>
         </main>
