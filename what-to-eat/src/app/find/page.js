@@ -14,6 +14,21 @@ export default function Find() {
   const [selectedCuisines, setSelectedCuisines] = useState([]);
   const [selectedPrice, setSelectedPrice] = useState('$$$$');
 
+
+  const cuisineTypeMap = {
+  'Italian': 'italian_restaurant',
+  'Chinese': 'chinese_restaurant',
+  'Mexican': 'mexican_restaurant',
+  'Japanese': 'japanese_restaurant',
+  'American': 'american_restaurant',
+  'Indian': 'indian_restaurant',
+  'Thai': 'thai_restaurant',
+  'French': 'french_restaurant',
+  'Pizza': 'pizza_restaurant',
+  'Sushi': 'sushi_restaurant'
+  };
+  const cuisineTypes = Object.keys(cuisineTypeMap);
+
   const priceLevelMap = {
   "PRICE_LEVEL_INEXPENSIVE": 1,
   "PRICE_LEVEL_MODERATE": 2,
@@ -52,12 +67,10 @@ export default function Find() {
 
   }, [userPosition, distance, selectedCuisines, selectedPrice])
 
-    // NEW: Add this useEffect to handle the debouncing
   useEffect(() => {
-    // Set a timer
     const handler = setTimeout(() => {
       setDistance(sliderDistance);
-    }, 300); // 300ms delay
+    }, 300); 
     
     return () => {
       clearTimeout(handler);
@@ -66,14 +79,18 @@ export default function Find() {
 
 
   const filteredRestaurants = restaurants.filter(restaurant => {
-
-    const cuisineMatch = selectedCuisines.length === 0 || selectedCuisines.some(cuisine => restaurant.types.includes(cuisine.toLowerCase().replace(' ', '_')));
+    const cuisineMatch = selectedCuisines.length === 0 || 
+      selectedCuisines.some(cuisine => {
+    const apiCuisineType = cuisineTypeMap[cuisine]; 
+    return restaurant.types.includes(apiCuisineType);
+  });
     const priceMatch = priceLevelMap[restaurant.priceLevel] <= selectedPrice.length;
 
     return cuisineMatch && priceMatch;
 });
   
-  const cuisineTypes = ['Italian', 'Chinese', 'Mexican', 'Japanese', 'American', 'Indian', 'Thai', 'French', 'Mediterranean', 'Fast Food', 'Pizza', 'Sushi'];
+
+
 
   useEffect(() => {
     if (navigator.geolocation) {
