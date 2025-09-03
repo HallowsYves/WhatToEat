@@ -2,12 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import { Circle } from '../components/circle';
-import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
+import { APIProvider, Map as GoogleMap, AdvancedMarker } from '@vis.gl/react-google-maps';
 import styles from './find.module.css';
+import { toggleItem } from '../utils/filterUtils';
 
 
 export default function Find() {
   const [userPosition, setUserPosition] = useState(null);
+  const [selectedRestaurants, setSelectedRestaurants] = useState([]);
   const [sliderDistance, setSliderDistance] = useState(2.0);
   const [restaurants, setRestaurants] = useState([]);
   const [distance, setDistance] = useState(2.0);
@@ -25,16 +27,28 @@ export default function Find() {
   'Thai': 'thai_restaurant',
   'French': 'french_restaurant',
   'Pizza': 'pizza_restaurant',
-  'Sushi': 'sushi_restaurant'
+  'Fast Food': 'fast_food_restaurant',
+  'Sushi': 'sushi_restaurant',
+  'Ramen': 'ramen_restaurant'
   };
-  const cuisineTypes = Object.keys(cuisineTypeMap);
-
   const priceLevelMap = {
   "PRICE_LEVEL_INEXPENSIVE": 1,
   "PRICE_LEVEL_MODERATE": 2,
   "PRICE_LEVEL_EXPENSIVE": 3,
   "PRICE_LEVEL_VERY_EXPENSIVE": 4
   };
+  const cuisineTypes = Object.keys(cuisineTypeMap);
+
+  const toggleRestaurant = (restaurant) => {
+    const newSelection = toggleItem(selectedRestaurants, restaurant);
+    setSelectedRestaurants(newSelection);
+  }
+
+  const toggleCuisine = (cuisine) => {
+  const newCuisines = toggleItem(selectedCuisines, cuisine);
+  setSelectedCuisines(newCuisines);
+};
+
 
   useEffect(() => {
 
@@ -88,6 +102,11 @@ export default function Find() {
 
     return cuisineMatch && priceMatch;
 });
+
+const restaurantMap = new Map();
+filteredRestaurants.forEach(r => restaurantMap.set(r.id, r));
+selectedRestaurants.forEach(r => restaurantMap.set(r.id, r));
+const displayRestaurants = Array.from(restaurantMap.values());
   
 
 
@@ -112,13 +131,7 @@ export default function Find() {
     }
   }, []);
 
-  const toggleCuisine = (cuisine) => {
-    setSelectedCuisines(prev => 
-      prev.includes(cuisine) 
-        ? prev.filter(c => c !== cuisine) 
-        : [...prev, cuisine]
-    );
-  };
+
   
   const clearFilters = () => {
     setSelectedCuisines([]);
@@ -196,7 +209,7 @@ export default function Find() {
           <div className={styles.mapContainer}>
             <h2 className={styles.sectionTitle}>Restaurant Map</h2>
             {userPosition ? (
-              <Map
+              <GoogleMap
                 defaultCenter={userPosition}
                 defaultZoom={14}
                 mapId={process.env.NEXT_PUBLIC_MAP_ID || 'what-to-eat-map'}
@@ -206,7 +219,7 @@ export default function Find() {
                 <AdvancedMarker position={userPosition} title={'Your Location'}>
                      <div className={styles.userMarker}></div>
                 </AdvancedMarker>
-                {filteredRestaurants.map(r => 
+                {displayRestaurants.map(r => 
                 <AdvancedMarker 
                 key={r.id} 
                 position={{lat: r.location.latitude, lng: r.location.longitude}} 
@@ -220,7 +233,7 @@ export default function Find() {
                 fillColor="#007cff"
                 fillOpacity={0.2}
                 />
-              </Map>
+              </GoogleMap>
             ) : (
               <div className={styles.loading}>
                 <p>Loading map and getting your location...</p>
@@ -233,11 +246,16 @@ export default function Find() {
             <p className={styles.resultsFound}>{restaurants.length} restaurants found</p>
             
           <div className={styles.restaurantList}>
-            {filteredRestaurants.map(restaurant => {
+            {displayRestaurants.map(restaurant => {
               const priceString = '$'.repeat(restaurant.priceLevel);
+              const isSelected = selectedRestaurants.some(r => r.id === restaurant.id);
 
             return (
-              <div key={restaurant.id} className={styles.restaurantCard}>
+              <div 
+                key={restaurant.id} 
+                className={`${styles.restaurantCard} ${isSelected ? styles.selectedCard : ''}`}
+                onClick={() => toggleRestaurant(restaurant)}
+              >
                 <div className={styles.cardHeader}>
                   <h4 className={styles.cardTitle}>{restaurant.displayName.text}</h4>
                   <div className={styles.cardRating}>⭐ {restaurant.rating}</div>
