@@ -8,8 +8,8 @@ export async function POST (request) {
     const user_info = await request.json();
 
     const body = {
-        "includedTypes": ["restaurant"],
-        "maxResultCount": 10,
+        "includedTypes": user_info.cuisines && user_info.cuisines.length > 0 ? user_info.cuisines : ["restaurant"],
+        "maxResultCount": 15,
         "locationRestriction": {
             "circle": {
                 "center" : {

@@ -45,6 +45,7 @@ export default function Find() {
           latitude: userPosition.lat,
           longitude: userPosition.lng,
           radius: distance * 1609.34,
+          cuisines: selectedCuisines.map(c => cuisineTypeMap[c])
         })
       });
 

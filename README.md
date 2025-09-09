@@ -5,10 +5,9 @@
 - Add Next button that takes to the wheel
 
 ## NEW (what was done)
-- Created RestaurantCard.jsx
-- Created cusineUtils.js to reduce large lines of data needed
-- Dollar signs show up on the list of restaurants that are returned. 
-- Changed km to Miles
+- Modified API call to return x amount of resturants per type of category. (I.e pizza returns x amount of pizza places instead of 1 out of 15)
+- Restaurants returned bumped from 10 => 15
+
 
 ## Known Bugs / Look into
-- Restaurants limited to 10, what's an acceptable value?
+- Maybe UI overhaul...
