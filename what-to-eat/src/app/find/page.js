@@ -3,8 +3,10 @@
 import { useState, useEffect } from 'react';
 import { Circle } from '../components/circle';
 import { APIProvider, Map as GoogleMap, AdvancedMarker } from '@vis.gl/react-google-maps';
-import styles from './find.module.css';
 import { toggleItem } from '../utils/filterUtils';
+import { cuisineTypeMap, priceLevelMap } from '../utils/cuisineUtils';
+import styles from './find.module.css';
+import RestaurantCard from '../components/RestaurantCard';
 
 
 export default function Find() {
@@ -16,27 +18,6 @@ export default function Find() {
   const [selectedCuisines, setSelectedCuisines] = useState([]);
   const [selectedPrice, setSelectedPrice] = useState('$$$$');
 
-
-  const cuisineTypeMap = {
-  'Italian': 'italian_restaurant',
-  'Chinese': 'chinese_restaurant',
-  'Mexican': 'mexican_restaurant',
-  'Japanese': 'japanese_restaurant',
-  'American': 'american_restaurant',
-  'Indian': 'indian_restaurant',
-  'Thai': 'thai_restaurant',
-  'French': 'french_restaurant',
-  'Pizza': 'pizza_restaurant',
-  'Fast Food': 'fast_food_restaurant',
-  'Sushi': 'sushi_restaurant',
-  'Ramen': 'ramen_restaurant'
-  };
-  const priceLevelMap = {
-  "PRICE_LEVEL_INEXPENSIVE": 1,
-  "PRICE_LEVEL_MODERATE": 2,
-  "PRICE_LEVEL_EXPENSIVE": 3,
-  "PRICE_LEVEL_VERY_EXPENSIVE": 4
-  };
   const cuisineTypes = Object.keys(cuisineTypeMap);
 
   const toggleRestaurant = (restaurant) => {
@@ -63,7 +44,7 @@ export default function Find() {
         body: JSON.stringify({
           latitude: userPosition.lat,
           longitude: userPosition.lng,
-          radius: distance * 1000,
+          radius: distance * 1609.34,
         })
       });
 
@@ -187,17 +168,17 @@ const displayRestaurants = Array.from(restaurantMap.values());
             <h3 className={styles.filterTitle}>Search Distance</h3>
              <input 
                 type="range" 
-                min="0.5" 
-                max="10" 
-                step="0.5"
+                min="1" 
+                max="15" 
+                step="1"
                 value={sliderDistance}
                 onChange={(e) => setSliderDistance(parseFloat(e.target.value))}
                 className={styles.slider} 
              />
              <div className={styles.sliderLabels}>
-                <span>0.5km</span>
-                <span className={styles.distanceValue}>{sliderDistance.toFixed(1)} km</span>                
-                <span>10km</span>
+                <span>1 mile</span>
+                <span className={styles.distanceValue}>{sliderDistance.toFixed(0)} mile(s)</span>                
+                <span>15 miles</span>
              </div>
           </div>
           
@@ -226,7 +207,7 @@ const displayRestaurants = Array.from(restaurantMap.values());
                 title={r.displayName.text} />)}
                 <Circle
                 center = {userPosition}
-                radius={distance * 1000}
+                radius={distance * 1609.34}
                 strokeColor="#007cff"
                 strokeOpacity={0.8}
                 strokeWeight={2}
@@ -247,24 +228,17 @@ const displayRestaurants = Array.from(restaurantMap.values());
             
           <div className={styles.restaurantList}>
             {displayRestaurants.map(restaurant => {
-              const priceString = '$'.repeat(restaurant.priceLevel);
               const isSelected = selectedRestaurants.some(r => r.id === restaurant.id);
 
-            return (
-              <div 
-                key={restaurant.id} 
-                className={`${styles.restaurantCard} ${isSelected ? styles.selectedCard : ''}`}
-                onClick={() => toggleRestaurant(restaurant)}
-              >
-                <div className={styles.cardHeader}>
-                  <h4 className={styles.cardTitle}>{restaurant.displayName.text}</h4>
-                  <div className={styles.cardRating}>⭐ {restaurant.rating}</div>
-                </div>
-                <div className={styles.cardDetails}>
-                  <span className={styles.price}>{priceString}</span>
-                </div>
-              </div>
-            );
+              return (
+                <RestaurantCard
+                key={restaurant.id}
+                restaurant={restaurant}
+                isSelected={isSelected}
+                toggleRestaurant={toggleRestaurant}
+               />
+              );
+
           })}
           </div>
           </div>
