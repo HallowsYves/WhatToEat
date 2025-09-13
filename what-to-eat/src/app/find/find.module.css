@@ -1,8 +1,8 @@
 .container {
   display: flex;
-  background-color: #0D1B2A;
-  color: #E0E1DD;
-  min-height: calc(100vh - 80px); /* Full height minus navbar */
+  background-color: var(--background);
+  color: var(--text-primary);
+  min-height: calc(100vh - 80px); 
   padding: 1.5rem;
   gap: 2rem;
 }
@@ -10,7 +10,7 @@
 /* --- Sidebar --- */
 .sidebar {
   flex: 0 0 300px;
-  background-color: #1B263B;
+  background-color: var(--surface);
   padding: 1.5rem;
   border-radius: 12px;
   align-self: flex-start;
@@ -24,10 +24,10 @@
 .filterTitle {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #E0E1DD;
+  color: var(--text-primary);
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
-  border-bottom: 1px solid #415A77;
+  border-bottom: 1px solid var(--primary);
 }
 
 .cuisineGrid {
@@ -37,8 +37,8 @@
 }
 
 .cuisineButton {
-  background-color: #415A77;
-  color: #E0E1DD;
+  background-color: var(--primary);
+  color: var(--text-primary);
   border: 1px solid transparent;
   padding: 0.5rem 1rem;
   border-radius: 20px;
@@ -48,12 +48,12 @@
 }
 
 .cuisineButton:hover {
-  background-color: #5d7aa1;
-  border-color: #778DA9;
+  background-color: var(--secondary);
+  border-color: var(--secondary);
 }
 
 .activeCuisine {
-  background-color: #F77F00; /* Accent color */
+  background-color: var(--accent); 
   color: #0D1B2A;
   font-weight: bold;
 }
@@ -63,7 +63,7 @@
   -webkit-appearance: none;
   appearance: none;
   height: 8px;
-  background: #415A77;
+  background: var(--primary);
   border-radius: 5px;
   outline: none;
   margin-top: 1rem;
@@ -74,7 +74,7 @@
   appearance: none;
   width: 20px;
   height: 20px;
-  background: #F77F00;
+  background: var(--accent);
   cursor: pointer;
   border-radius: 50%;
 }
@@ -82,7 +82,7 @@
 .slider::-moz-range-thumb {
   width: 20px;
   height: 20px;
-  background: #F77F00;
+  background: var(--accent);
   cursor: pointer;
   border-radius: 50%;
 }
@@ -91,21 +91,21 @@
   display: flex;
   justify-content: space-between;
   font-size: 0.8rem;
-  color: #778DA9;
+  color: var(--text-secondary);
   margin-top: 0.5rem;
 }
 
 .distanceValue {
-  color: #E0E1DD;
+  color: var(--text-primary);
   font-weight: bold;
 }
 
 .clearButton {
   width: 100%;
   padding: 0.75rem;
-  border: 1px solid #778DA9;
+  border: 1px solid var(--secondary);
   background-color: transparent;
-  color: #E0E1DD;
+  color: var(--text-primary);
   border-radius: 8px;
   cursor: pointer;
   font-weight: 500;
@@ -114,8 +114,8 @@
 }
 
 .clearButton:hover {
-  background-color: #415A77;
-  border-color: #415A77;
+  background-color: var(--primary);
+  border-color: var(--primary);
 }
 
 
@@ -134,10 +134,10 @@
 }
 
 .mapContainer {
-  height: 400px;
-  background-color: #1B263B;
+  height: 500px;
+  background-color: var(--surface);
   border-radius: 12px;
-  overflow: hidden; /* Important for border-radius on map */
+  overflow: hidden; 
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
   padding: 1rem;
 }
@@ -162,14 +162,14 @@
 
 /* --- Restaurant List --- */
 .listContainer {
-  background-color: #1B263B;
+  background-color: var(--surface);
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .resultsFound {
-  color: #778DA9;
+  color: var(--text-secondary);
   margin-bottom: 1rem;
 }
 
@@ -180,8 +180,8 @@
 }
 
 .restaurantCard {
-  background-color: #0D1B2A;
-  border: 1px solid #415A77;
+  background-color: var(--background);
+  border: 1px solid var(--primary);
   border-radius: 8px;
   padding: 1rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
@@ -189,7 +189,7 @@
 }
 
 .selectedCard {
-  border-color: #F77F00;
+  border-color: var(--accent);
   box-shadow: 0 0 15px rgba(247, 127, 0, 0.5);
 }
 
@@ -212,7 +212,7 @@
 }
 
 .cardRating {
-  background-color: #F77F00;
+  background-color: var(--accent);
   color: #0D1B2A;
   padding: 0.2rem 0.6rem;
   border-radius: 12px;
@@ -223,20 +223,20 @@
 .cardDetails {
   display: flex;
   gap: 0.5rem;
-  color: #778DA9;
+  color: var(--text-secondary);
   font-size: 0.9rem;
   margin-bottom: 1rem;
 }
 
 .price {
-  color: #E0E1DD;
+  color: var(--text-primary);
 }
 
 .cardFooter {
   display: flex;
   justify-content: space-between;
   font-size: 0.875rem;
-  color: #778DA9;
+  color: var(--text-secondary);
 }
 
 .open {

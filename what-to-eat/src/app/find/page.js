@@ -189,7 +189,6 @@ const displayRestaurants = Array.from(restaurantMap.values());
         {/* Main Content */}
         <main className={styles.mainContent}>
           <div className={styles.mapContainer}>
-            <h2 className={styles.sectionTitle}>Restaurant Map</h2>
             {userPosition ? (
               <GoogleMap
                 defaultCenter={userPosition}
