@@ -1,6 +1,7 @@
 # WhatToEat
 
 ## TODO
+- Add photo support, Review support, Live status of place, Maybe Tinder like
 - Allow user to move marker/ location in case they wanted to search in a different area
 - Add Next button that takes to the wheel
 
@@ -9,5 +10,5 @@
 - Restaurants returned bumped from 10 => 15
 
 
-## Known Bugs / Look into
-- Maybe UI overhaul...
+## Bugs / Look into
+- Reset filters dosen't reset price filter
